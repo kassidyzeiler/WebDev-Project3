@@ -1,0 +1,163 @@
+/** final-frontier.css
+ * CSS rules for the final frontier CMS app 
+ * 
+ * Place your custom CSS rules in this document 
+ */
+@font-face{
+    font-family: myFont;
+    src: 'assets/TNG_Credits.ttf';
+}
+h1{
+    font-family: myFont;
+}
+h2{
+    font-family: myFont;
+}
+h3{
+    font-family: myFont;
+}
+h4{
+    font-family: myFont;
+}
+h5{
+    font-family: myFont;
+}
+h6{
+    font-family: myFont;
+}
+
+.card{
+    background-color: #888888;
+    height: 300px;
+    width: 300px;
+    border-radius: 25px;
+    box-shadow: 5px 10px #00FF00;
+}
+
+.Searching{
+    margin-bottom: 20px;
+}
+
+.readMore{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-button {
+  float: left;
+  margin-top: -50px;
+  margin-left: 30px;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.disappear{
+    display: none;
+}
+
+.expanded{
+    margin: 0 auto !important;
+    position: fixed;
+    width: 95vw !important;
+    height: 80vh;
+    background-color: white;
+    overflow: scroll;
+}
+
+#pics img:nth-child(2){
+    display: inline !important;
+}
+#pics img:nth-child(n){
+    order: n;
+}
+
+.flex-container{
+    display: flex;
+    align-items: center;
+}
+
+.pic{
+    width: 100%;
+}
+.pic.disappear{
+    width: 50% !important;
+}
+
+.gallery{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#one{
+    order: 1;
+}
+
+#two{
+    order: 2;
+}
+
+#three{
+    order: 4;
+}
+
+#four{
+    order:5;
+}
+
+#five{
+    order: 6;
+}
+
+#six{
+    order: 7;
+}
+
+#seven{
+    order: 8;
+}
+
+#eight{
+    order: 9;
+}
+
+.contentArticle{
+    height: 170px;
+    overflow: hidden;
+}
+
+.contentGallery{
+    width: 50%;
+    order: 3;
+}
+.maximize{
+    height: 100% !important;
+    overflow: visible !important;
+}
+.video{
+    width: 100%;
+}
+@media only screen and (min-device-width: 490px){
+    .grid-container{
+        display: grid;
+        grid-row-gap: 50px;
+        grid-column-gap: 50px;
+        grid-template-columns: auto auto auto auto;
+    }
+    #pics{
+        grid-template-columns: auto auto auto !important;
+    }
+}
+@media only screen and (max-device-width: 489px){
+    .grid-container{
+        display: grid;
+        grid-row-gap: 50px;
+        grid-column-gap: 50px;
+        grid-template-columns: auto;
+    }
+}
