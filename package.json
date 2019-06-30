@@ -1,0 +1,11 @@
+{
+  "name": "node-package",
+  "version": "1.0.0",
+  "description": "Assignment 2 - file server implementation",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Kassidy Zeiler",
+  "license": "UNLICENSED"
+}
