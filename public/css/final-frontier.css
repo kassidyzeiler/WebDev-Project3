@@ -3,32 +3,39 @@
  * 
  * Place your custom CSS rules in this document 
  */
+
 @font-face{
-    font-family: myFont;
-    src: 'assets/TNG_Credits.ttf';
+font-family: myFont;
+src: '../assets/TNG_Credits.ttf';
 }
+
 h1{
-    font-family: myFont;
+    font-family: myFont;    font-face: Veranda;
+
 }
 h2{
-    font-family: myFont;
+    font-family: myFont;    font-face: Veranda;
+
 }
 h3{
-    font-family: myFont;
+    font-family: myFont;    font-face: Veranda;
+
 }
 h4{
-    font-family: myFont;
+    font-family: myFont;    font-face: Veranda;
+
 }
 h5{
-    font-family: myFont;
+    font-family: myFont;    font-face: Veranda;
+
 }
 h6{
     font-family: myFont;
+    font-face: Veranda;
 }
 
 .card{
     background-color: #888888;
-    height: 300px;
     width: 300px;
     border-radius: 25px;
     box-shadow: 5px 10px #00FF00;
@@ -67,6 +74,7 @@ h6{
     height: 80vh;
     background-color: white;
     overflow: scroll;
+    z-index: 10000;
 }
 
 #pics img:nth-child(2){
@@ -129,11 +137,22 @@ h6{
 .contentArticle{
     height: 170px;
     overflow: hidden;
+    width: 100%;
+}
+
+.contentAudio{
+    width: 100%;
+    overflow: scroll;
 }
 
 .contentGallery{
     width: 50%;
     order: 3;
+}
+
+.contentVideo{
+    width: 100%;
+    overflow: scroll;
 }
 .maximize{
     height: 100% !important;

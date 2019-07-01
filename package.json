@@ -6,6 +6,10 @@
   "scripts": {
     "start": "node server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kassidyzeiler/WebDev-Project3.git"
+  },
   "author": "Kassidy Zeiler",
   "license": "UNLICENSED"
 }
