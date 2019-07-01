@@ -6,12 +6,13 @@ const serveFile = require('./serve-file');
  * @param {http.serverResponse} res - the response object
  */
 module.exports = function requestHandler(req, res) {
-  // TODO: Add response handling
+  //Response handling
   if(req.method !== 'GET') {
     res.statusCode = 501;
     res.statusMessage = "Not Implemented";
     res.end();
     return;
   }
+  //Serve file
   serveFile(req, res);
 }

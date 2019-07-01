@@ -11,6 +11,11 @@ var url = require('url');
 const cardsData = require('./data/cards.json');
 const generateCardHTML = require('./src/generate-card-html.js');
 
+/** @module handleRequest
+ * Provides a function for handling HTTP requests 
+ * @param {http.incomingMessage} req - the request object
+ * @param {http.serverResponse} res - the response object
+ */
 module.exports = function handleRequest(req, res) {
   //TODO: Implement serve file
   var pathname = url.parse(req.url).pathname;
@@ -25,8 +30,10 @@ module.exports = function handleRequest(req, res) {
     }
     
     // Serve the requested resource
+    // if it's in the file
     if(stats.isFile()) {
       serveFile(filePath, res, function(err){
+        //Returns a 404 status code if there's an error          
         if(err) {
           console.error(err);
           res.statusCode = 404;
@@ -35,8 +42,10 @@ module.exports = function handleRequest(req, res) {
           return;
         }
       }); 
+    //if it's in the directory
     } else if(stats.isDirectory()) {
       serveIndex(filePath, res, function(err){
+        //Returns a 404 status code if there's an error
         if(err) {
           console.error(err);
           res.statusCode = 404;
@@ -44,6 +53,7 @@ module.exports = function handleRequest(req, res) {
           res.end();
           return;
         }});
+    //Returns a 404 status code if it's not found
     } else {
       res.statusCode = 404;
       res.statusMessage = "Not Found";
@@ -54,13 +64,24 @@ module.exports = function handleRequest(req, res) {
 
 }
 
+/** @module serveFile 
+ * Provides a function for serving files in the public 
+ * directory matching the pathname in the req.url 
+ * If not found, serves a 404 status code.
+ * @param {http.incomingMessage} req - the request object
+ * @param {http.serverResponse} res - the response object
+ * @param {serveIndexListing~callback} callback - a callback to 
+ * invoke once execution finishes.
+ */
 function serveFile(filePath, res, callback) {
-  
   fs.readFile(filePath, function(err, body){
     if(err) return callback(err);
+      
+    //Set the content-length
     res.setHeader("Content-Length", body.length);
-
-      switch(path.extname(filePath).toLowerCase()){
+      
+    //Set the content-type
+    switch(path.extname(filePath).toLowerCase()){
       case '.html':
       case '.htm':
         res.setHeader('Content-Type', 'text/html');
@@ -106,11 +127,18 @@ function serveFile(filePath, res, callback) {
         res.setHeader('Content-Type', 'application/octet-stream');
         break;
       }
+      //Serve the file data
       res.end(body);
   });
 }
 
-
+/** @function serveIndex()
+ * Checks for an error before passing it to the next function
+ * @param {string} directoryPath - the path to the directory 
+ * @param {http.serverResponse} res - the repsonse object
+ * @param {serveIndexListing~callback} callback - a callback to 
+ * invoke once execution finishes.
+ */
 function serveIndex(dirPath, res, callback) {
   serveFile(path.join(dirPath, 'index.html'), res, function(err) {
     if(err) serveIndexListing(dirPath, res, callback);
