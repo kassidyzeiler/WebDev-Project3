@@ -8,8 +8,9 @@
 var path = require('path');
 var fs = require('fs');
 var url = require('url');
-const cardsData = require('./data/cards.json');
+//const cardsData = require('./data/cards.json');
 const generateCardHTML = require('./src/generate-card-html.js');
+const parseBody = require('./src/parse-body');
 
 /** @module handleRequest
  * Provides a function for handling HTTP requests 
@@ -18,7 +19,7 @@ const generateCardHTML = require('./src/generate-card-html.js');
  */
 module.exports = function handleRequest(req, res) {
   //TODO: Implement serve file
-  var pathname = url.parse(req.url).pathname;
+  var pathname = decodeURI(url.parse(req.url).pathname);
   var filePath = path.join('public', pathname);
   fs.stat(filePath, function(err, stats) {
     if(err) {
@@ -32,6 +33,7 @@ module.exports = function handleRequest(req, res) {
     // Serve the requested resource
     // if it's in the file
     if(stats.isFile()) {
+        console.log(filePath);
       serveFile(filePath, res, function(err){
         //Returns a 404 status code if there's an error          
         if(err) {
@@ -44,15 +46,37 @@ module.exports = function handleRequest(req, res) {
       }); 
     //if it's in the directory
     } else if(stats.isDirectory()) {
-      serveIndex(filePath, res, function(err){
-        //Returns a 404 status code if there's an error
-        if(err) {
-          console.error(err);
-          res.statusCode = 404;
-          res.statusMessage = "Not Found";
-          res.end();
-          return;
-        }});
+        console.log(filePath);
+        if(filePath == "public/") {
+            serveFile(path.join(filePath, 'index.html'), res, function(err) {
+                if(err) {
+                    generateMainHTML(filePath, function(err, html) {
+                        if(err) {
+                            console.error(err);
+                            res.statusCode = 404;
+                            res.statusMessage = "Not Found";
+                            res.end();
+                            return;
+                        }
+                        // Serve html
+                        res.setHeader("Content-Type", "text/html");
+                        res.setHeader("Content-Length", html.length);
+                        res.end(html);
+                    });
+                }
+            }); 
+        }else {
+            serveIndex(filePath, res, function(err){
+            //Returns a 404 status code if there's an error
+            if(err) {
+              console.error(err);
+              res.statusCode = 404;
+              res.statusMessage = "Not Found";
+              res.end();
+              return;
+            }});
+        }
+      
     //Returns a 404 status code if it's not found
     } else {
       res.statusCode = 404;
@@ -181,10 +205,44 @@ function serveIndexListing(dirPath, res, callback) {
 function generateIndexHTML(dirPath, callback) {
   fs.readdir(dirPath, function(err, items){
     if(err) return err;
+    // Determine pathname 
+    var pathname = path.join('', dirPath.split("public/")[1]);
+    
+     // Create Links
+    var links = items.map(function(item) {
+      return `<li><a href="${path.join(pathname, item)}">${item}</a></li>`;
+    });
+      
+    // Generate HTML
+    var html = `<!DOCTYPE html>
+      <html>
+        <head>
+          <title>Index of ${pathname}</title>
+        <head>
+        <body>
+          <h1>Index of ${pathname}</h1>
+          <ul>
+            ${links.join("")}
+          <ul>
+        </body>
+      <html>`
+    
+    // Invoke callback
+    callback(null, html);
+  });
+}
+
+function generateMainHTML(dirPath, callback) {
+  fs.readdir(dirPath, function(err, items){
+    if(err) return err;
     
     // Determine pathname 
     var pathname = path.join('..', dirPath);
     
+    var cardsData = [];
+    try {
+        cardsData = JSON.parse(fs.readFileSync('data/cards.json').toString());
+    } catch {}
     // Create Links
     var cards = cardsData.map(function(card) {
       return generateCardHTML(card);
@@ -217,4 +275,3 @@ function generateIndexHTML(dirPath, callback) {
     callback(null, html);
   });
 }
-

@@ -35,12 +35,12 @@ function generateAudioCardHTML(cardData) {
     var source = cardData.source;
     var value = `
         <div id="content" class="card">
-            <h2 align="center">` + title + `</h2>
+            <h2 align="center">${title}</h2>
             <audio controls> 
-                <source src="` + source + `" type="audio/mpeg">
+                <source src="${source}" type="audio/mpeg">
             </audio>
             <div class="contentAudio">
-               <pre>` + content + `</pre>                 
+               <pre>${content}</pre>                 
             </div> 
         </div>
     `;

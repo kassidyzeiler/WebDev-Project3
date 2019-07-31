@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en-us">
+        <title>Video Upload Page</title>
+        <link href="css/mockup.css" rel="stylesheet" type="text/css">
+        <link href="css/final-frontier.css" rel="stylesheet" type="text/css">
+        <meta name="viewport" content="width=device-width, inital-scale=1.0">
+    </head>
+    <body>
+        <h1>Video Upload Page</h1>
+        <div id="content">
+            <h2 align="center">Video Form</h2>
+            <form enctype="multipart/form-data" action="/uploadVideo" method="POST">
+                <label for="video">Video Title:</label>
+                <input name="title" type="text" required>
+                <label for="video">Video Description:</label>
+                <input name="description" type="text" required>
+                <label for="video">Video File:</label>
+                <input name="video" type="file" required>
+                <input type="submit" value="upload">
+            </form>
+        </div> 
+        <script src="js/final-frontier.js"></script>
+    </body>
+</html>

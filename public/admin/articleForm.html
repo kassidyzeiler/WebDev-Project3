@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en-us">
+        <title>Article Upload Page</title>
+        <link href="css/mockup.css" rel="stylesheet" type="text/css">
+        <link href="css/final-frontier.css" rel="stylesheet" type="text/css">
+        <meta name="viewport" content="width=device-width, inital-scale=1.0">
+    </head>
+    <body>
+        <h1>Article Upload Page</h1>
+        <div id="content">
+            <div id="article">
+                <h2 align="center">Article Form</h2>
+                <form enctype="multipart/form-data" action="/uploadArticle" method="POST">
+                    <label for="image">Article Title:</label>
+                    <input name="title" type="text" required>
+                    <label for="image">Article Body:</label>
+                    <input name="body" type="text" required>
+                    <input type="submit" value="upload">
+                </form>
+            </div> 
+        </div>
+        <script src="js/final-frontier.js"></script>
+    </body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en-us">
+        <title>Audio Upload Page</title>
+        <link href="css/mockup.css" rel="stylesheet" type="text/css">
+        <link href="css/final-frontier.css" rel="stylesheet" type="text/css">
+        <meta name="viewport" content="width=device-width, inital-scale=1.0">
+    </head>
+    <body>
+        <h1>Audio Upload Page</h1>
+        <div id="content">
+            <h2 align="center">Audio Form</h2>
+            <form enctype="multipart/form-data" action="/uploadAudio" method="POST">
+                <label for="audio">Audio Title:</label>
+                <input name="title" type="text" required>
+                <label for="audio">Aduio Description:</label>
+                <input name="description" type="text" required>
+                <label for="audio">Audio File:</label>
+                <input name="audio" type="file" required>
+                <input type="submit" value="upload">
+            </form>
+        </div> 
+        <script src="js/final-frontier.js"></script>
+    </body>
+</html>
